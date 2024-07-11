@@ -1,3 +1,8 @@
+## Tech Stack
+
+- Gin (Http Server Library)
+- Gorm (ORM)
+
 ## Build
 
 Run `docker build -t repo_name .`. it would build the docker image, then we could
