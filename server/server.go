@@ -1,7 +1,7 @@
 package server
 
 import (
-	"net/http"
+	controller "peterchu999/simple-api/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,9 +11,8 @@ func SetupServer() *gin.Engine {
 	r := gin.Default()
 
 	// routes
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "hello 111"})
-	})
+	r.GET("/books", controller.FindBook)
+	r.POST("/books", controller.CreateBook)
 
 	return r
 }
