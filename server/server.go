@@ -1,14 +1,26 @@
 package server
 
 import (
+	"log"
 	controller "peterchu999/simple-api/controller"
+	"peterchu999/simple-api/model"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func SetupServer() *gin.Engine {
 	// engine of gin
+	loadEnvErr := godotenv.Load()
+
+	if loadEnvErr != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
 	r := gin.Default()
+
+	// database setup
+	model.ConnectDatabase()
 
 	// routes
 	r.GET("/books", controller.FindBook)
