@@ -1,3 +1,7 @@
+## Acknowledgement
+
+the source code and tutorial are fully following : https://blog.logrocket.com/rest-api-golang-gin-gorm/ for most part
+
 ## Tech Stack
 
 - Gin (Http Server Library)
