@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 
@@ -15,7 +16,7 @@ const ISSUER_APPLICATION = "simple-api"
 const LOGIN_EXPIRATION_DURATION = time.Duration(5) * time.Minute
 
 var JWT_SIGNING_METHOD = jwt.SigningMethodHS256
-var JWT_SIGNATURE_KEY = []byte("the secret of kalimdor")
+var JWT_SIGNATURE_KEY = []byte(os.Getenv("JWT_SIGNATURE_KEY"))
 
 type Claim struct {
 	jwt.Claims
