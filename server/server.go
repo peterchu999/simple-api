@@ -3,6 +3,7 @@ package server
 import (
 	"log"
 	controller "peterchu999/simple-api/controller"
+	"peterchu999/simple-api/middleware"
 	"peterchu999/simple-api/model"
 
 	"github.com/gin-gonic/gin"
@@ -22,12 +23,18 @@ func SetupServer() *gin.Engine {
 	// database setup
 	model.ConnectDatabase()
 
+	r.GET("/login", controller.Login)
+	booksRouter := r.Group("/books")
 	// routes
-	r.GET("/books", controller.FindBook)
-	r.GET("/books/:id", controller.FindBookById)
-	r.POST("/books", controller.CreateBook)
-	r.PATCH("/books/:id", controller.UpdateBook)
-	r.DELETE("/books/:id", controller.DeleteBook)
+
+	booksRouter.Use(middleware.JWTAuthMiddleware())
+	{
+		booksRouter.GET("/", controller.FindBook)
+		booksRouter.GET("/:id", controller.FindBookById)
+		booksRouter.POST("/", controller.CreateBook)
+		booksRouter.PATCH("/:id", controller.UpdateBook)
+		booksRouter.DELETE("/:id", controller.DeleteBook)
+	}
 
 	return r
 }
